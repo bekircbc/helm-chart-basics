@@ -1,0 +1,18 @@
+nextjs:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 3000
+  # Add any Next.js specific configurations here
+
+express:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 5000
+  # Add any Express specific configurations here
+
+mysql:
+  mysqlRootPassword: your_mysql_root_password
+  mysqlDatabase: your_database_name
+  # Add any MySQL specific configurations here
