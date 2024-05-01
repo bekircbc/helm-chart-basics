@@ -1,0 +1,4 @@
+apiVersion: v2
+name: nextjs-express-mysql
+description: A Helm chart for deploying a Next.js, Express, and MySQL application
+version: 0.1.0
