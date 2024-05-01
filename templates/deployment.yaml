@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nextjs-express-mysql.fullname" . }}
+  labels:
+    app: {{ include "nextjs-express-mysql.name" . }}
+spec:
+  replicas: {{ .Values.nextjs.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "nextjs-express-mysql.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "nextjs-express-mysql.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: nextjs
+          image: "nextjs:latest"   # Use your Next.js image
+          ports:
+            - containerPort: 3000
+        - name: express
+          image: "express:latest"  # Use your Express image
+          ports:
+            - containerPort: 5000
+        - name: mysql
+          image: "mysql:latest"    # Use your MySQL image
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "{{ .Values.mysql.mysqlRootPassword }}"
+            - name: MYSQL_DATABASE
+              value: "{{ .Values.mysql.mysqlDatabase }}"
+          ports:
+            - containerPort: 3306
